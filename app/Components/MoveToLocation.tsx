@@ -2,7 +2,12 @@
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
 
-function MoveToLocation({ coordinates }) {
+interface Coordinates {
+  lat: number
+  lon: number
+}
+
+function MoveToLocation({ coordinates }: { coordinates: Coordinates }) {
   const map = useMap()
 
   useEffect(() => {

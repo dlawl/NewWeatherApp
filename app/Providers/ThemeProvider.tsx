@@ -3,6 +3,10 @@
 import * as React from 'react'
 import { WeatherContextProvider } from '@/app/context/weatherContext'
 
-export function ThemeProvider({ children }) {
+interface ThemeProviderProps {
+  children: React.ReactNode
+}
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
   return <WeatherContextProvider>{children}</WeatherContextProvider>
 }

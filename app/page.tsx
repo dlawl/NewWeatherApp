@@ -11,7 +11,6 @@ import GeoMap from './Components/GeoMap'
 import CitySearch from './Components/CitySearch'
 import CurrentTemperature from './Components/CurrentTemperature'
 import WindSpeed from './Components/WindSpeed'
-import Navbar from './Components/Navbar'
 
 export default function Home() {
   const { weatherForecast } = useWeatherContext()
