@@ -1,4 +1,3 @@
-// components/ui/page.tsx
 'use client'
 
 import React from 'react'
@@ -20,25 +19,25 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto max-w-screen-2xl p-4 relative z-0">
+    <main className="mx-auto p-4 relative z-0" style={{ maxWidth: '1000px' }}>
       <div className="grid grid-cols-12 gap-4 relative z-0">
-        <div className="col-span-12 md:col-span-3 space-y-4">
-          <div className="mt-0 w-full">
-            <CitySearch />
-          </div>
+        <div className="col-span-12 mb-2">
+          <CitySearch />
+        </div>
+        <div className="col-span-12 lg:col-span-4">
           <CurrentTemperature />
-          <AirQuality />
         </div>
-        <div className="col-span-12 md:col-span-6 space-y-4">
+        <div className="col-span-12 lg:col-span-8 h-[400px]">
+          <GeoMap />
+        </div>
+        <div className="col-span-12 mt-2">
           <DailyWeatherForecast />
-          <div className="h-[400px]">
-            <GeoMap />
-          </div>
         </div>
-        <div className="col-span-12 md:col-span-3 space-y-4">
-          <WindSpeed />
+        <div className="col-span-12 grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+          <AirQuality />
           <FeelTemperature />
           <Moisture />
+          <WindSpeed />
         </div>
       </div>
     </main>

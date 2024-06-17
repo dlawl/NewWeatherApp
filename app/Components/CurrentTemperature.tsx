@@ -89,7 +89,7 @@ function CurrentTemperature() {
   }
 
   return (
-    <div className="pt-6 pb-5 px-4 border rounded-lg flex flex-col justify-between bg-light-beige shadow-sm dark:shadow-none text-dark-text">
+    <div className="pt-6 pb-5 px-4 flex flex-col justify-between text-dark-text h-full bg-blur">
       <div className="flex flex-col">
         <p className="text-xl font-bold">{moment.unix(dt).format('dddd')}</p>
         <p className="text-sm">{moment.unix(dt).format('D MMM YYYY')}</p>

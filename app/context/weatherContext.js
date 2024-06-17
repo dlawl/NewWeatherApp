@@ -89,6 +89,8 @@ export const WeatherContextProvider = ({ children }) => {
         geoLocationList,
         searchInput,
         handleInput,
+        setSearchInput,
+        setGeoLocationList,
         updateCityCoordinates: setActiveCityCoords,
         errorMessage,
       }}

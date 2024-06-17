@@ -52,15 +52,15 @@ function DailyWeatherForecast() {
   )
 
   const sortedForecastDates = Object.keys(groupedForecasts).sort((a, b) => {
-    const dateA = moment(a)
-    const dateB = moment(b)
+    const dateA: moment.Moment = moment(a)
+    const dateB: moment.Moment = moment(b)
     if (dateA.isSame(today, 'day')) return -1
     if (dateB.isSame(today, 'day')) return 1
     return dateA.diff(dateB)
   })
 
   const getWeatherIcon = (weatherMain: string) => {
-    const iconStyle = { width: '50px', height: '50px' }
+    const iconStyle = { width: '100%' }
     switch (weatherMain) {
       case 'Drizzle':
         return <div style={iconStyle}>{drizzleIcon}</div>
@@ -94,10 +94,7 @@ function DailyWeatherForecast() {
   )
 
   return (
-    <div
-      className="pt-6 pb-5 px-4 h-auto border rounded-lg flex flex-row justify-between gap-4
-      bg-light-beige shadow-sm dark:shadow-none col-span-full sm:col-span-2 md:col-span-2 xl:col-span-2"
-    >
+    <div className="p-12 h-auto flex flex-row justify-between gap-4 col-span-full bg-blur items-center">
       {forecastDays.map(date => {
         const dayForecasts = groupedForecasts[date] || []
         const weatherMain =
@@ -107,7 +104,7 @@ function DailyWeatherForecast() {
         return (
           <div
             key={date}
-            className="flex flex-col gap-2 text-dark-text items-center"
+            className="flex flex-col gap-6 text-dark-text items-center justify-center" // 추가된 justify-center 클래스
           >
             {getWeatherIcon(weatherMain)}
             <p className="text-gray-500">{getDayOfWeek(date)}</p>

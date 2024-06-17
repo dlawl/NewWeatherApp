@@ -38,13 +38,12 @@ function GeoMap() {
   }
 
   return (
-    <div className="flex-1 border rounded-lg h-[400px]">
+    <div className="relative border rounded-lg h-[400px] bg-blur">
       <MapContainer
         center={[locationCoordinates.lat, locationCoordinates.lon]}
         zoom={13}
         scrollWheelZoom={false}
-        className="rounded-lg"
-        style={{ height: '100%', width: '100%' }}
+        className="rounded-lg h-full w-full"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import type { PluginAPI } from 'tailwindcss/types/config'
 
 const config: Config = {
   darkMode: ['class'],
@@ -24,8 +25,8 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: '#86B9E0',
+        foreground: '#ffffff',
         'dark-grey': '#0A0A0A',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
@@ -56,7 +57,7 @@ const config: Config = {
           foreground: 'hsl(var(--card-foreground))',
         },
         'light-beige': '#f5f5dc',
-        'dark-text': '#333333',
+        'dark-text': '#ffffff',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -83,7 +84,20 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities({
+        '.bg-blur': {
+          'backdrop-filter': 'blur(3px)',
+          'background-color': 'rgba(255, 255, 255, 0.1)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          'border-radius': '10px',
+          'box-shadow': '2px 2px 4px rgba(0, 0, 0, 0.25)',
+        },
+      })
+    },
+  ],
 }
 
 export default config
