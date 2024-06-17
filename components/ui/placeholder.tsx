@@ -1,5 +1,5 @@
 // app/components/ui/placeholder.tsx
-import { mergeNames } from '@/lib/helper'
+import clsx from 'clsx'
 
 function Placeholder({
   className,
@@ -7,7 +7,7 @@ function Placeholder({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={mergeNames('animate-pulse rounded-md bg-muted', className)}
+      className={clsx('animate-pulse rounded-md bg-muted', className)}
       {...props}
     />
   )

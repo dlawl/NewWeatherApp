@@ -18,14 +18,11 @@ moment.locale('ko')
 
 function CurrentTemperature() {
   const { weatherForecast } = useWeatherContext()
-
-  // State
   const [localTime, setLocalTime] = useState<string>('')
 
   useEffect(() => {
     if (!weatherForecast || !weatherForecast.weather) return
 
-    // Live time update
     const interval = setInterval(() => {
       const localMoment = moment().utcOffset(weatherForecast.timezone / 60)
       const formattedTime = localMoment.format('HH:mm:ss')
@@ -33,7 +30,6 @@ function CurrentTemperature() {
       setLocalTime(formattedTime)
     }, 1000)
 
-    // clear interval
     return () => clearInterval(interval)
   }, [weatherForecast])
 

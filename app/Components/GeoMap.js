@@ -1,38 +1,40 @@
 // app/Components/GeoMap.js
 'use client'
-import React, { useEffect } from 'react'
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import dynamic from 'next/dynamic'
+import React, { useEffect, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { useWeatherContext } from '@/app/context/weatherContext'
+import { Placeholder } from '@/components/ui/placeholder'
 
-function MoveToLocation({ coordinates }) {
-  const map = useMap()
-
-  useEffect(() => {
-    if (coordinates) {
-      const zoomLevel = 13
-      const flyToOptions = {
-        duration: 1.5,
-      }
-
-      map.flyTo([coordinates.lat, coordinates.lon], zoomLevel, flyToOptions)
-    }
-  }, [coordinates, map])
-
-  return null
-}
+const MapContainer = dynamic(
+  () => import('react-leaflet').then(mod => mod.MapContainer),
+  { ssr: false }
+)
+const TileLayer = dynamic(
+  () => import('react-leaflet').then(mod => mod.TileLayer),
+  { ssr: false }
+)
+const MoveToLocation = dynamic(() => import('./MoveToLocation.tsx'), {
+  ssr: false,
+})
 
 function GeoMap() {
   const { weatherForecast } = useWeatherContext()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const locationCoordinates = weatherForecast?.coord
 
-  if (!weatherForecast || !weatherForecast.coord || !locationCoordinates) {
-    return (
-      <div>
-        <h1>Loading</h1>
-      </div>
-    )
+  if (
+    !isClient ||
+    !weatherForecast ||
+    !weatherForecast.coord ||
+    !locationCoordinates
+  ) {
+    return <Placeholder className="w-full h-[400px]" />
   }
 
   return (
@@ -48,7 +50,6 @@ function GeoMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-
         <MoveToLocation coordinates={locationCoordinates} />
       </MapContainer>
     </div>

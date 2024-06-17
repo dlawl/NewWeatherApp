@@ -1,6 +1,8 @@
 // components/ui/page.tsx
 'use client'
 
+import React from 'react'
+import { useWeatherContext } from '@/app/context/weatherContext'
 import AirQuality from './Components/AirQuality'
 import DailyWeatherForecast from './Components/DailyWeatherForecast'
 import FeelTemperature from './Components/FeelTemperature'
@@ -9,8 +11,15 @@ import GeoMap from './Components/GeoMap'
 import CitySearch from './Components/CitySearch'
 import CurrentTemperature from './Components/CurrentTemperature'
 import WindSpeed from './Components/WindSpeed'
+import Navbar from './Components/Navbar'
 
 export default function Home() {
+  const { weatherForecast } = useWeatherContext()
+
+  if (!weatherForecast) {
+    return <div>Loading...</div>
+  }
+
   return (
     <main className="mx-auto max-w-screen-2xl p-4 relative z-0">
       <div className="grid grid-cols-12 gap-4 relative z-0">
