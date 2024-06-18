@@ -1,4 +1,3 @@
-// app/Components/WindSpeed.tsx
 'use client'
 import { useWeatherContext } from '@/app/context/weatherContext'
 import { wind } from '@/app/utils/Icons'
@@ -15,7 +14,7 @@ function WindSpeed() {
   }
 
   return (
-    <div className="pt-6 pb-5 px-4 flex flex-row items-center gap-2 h-full bg-blur">
+    <div className="pt-6 pb-5 px-4 flex flex-col md:flex-row items-center gap-2 h-full bg-blur">
       <div className="icon-container">
         <div className="text-white rounded-full h-24 w-24 flex items-center justify-center text-lg">
           {wind}

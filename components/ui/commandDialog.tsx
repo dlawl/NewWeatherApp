@@ -2,17 +2,26 @@
 'use client'
 
 import * as React from 'react'
-import { type DialogProps } from '@radix-ui/react-dialog'
-import { Command as CommandPrimitive } from 'cmdk'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandSeparator,
+  CommandItem,
+  CommandShortcut,
+} from 'cmdk'
 import { Search } from 'lucide-react'
 
 import { mergeNames } from '@/lib/helper'
 
 const CommandDialog = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof Command>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive
+  <Command
     ref={ref}
     className={mergeNames(
       'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
@@ -21,17 +30,15 @@ const CommandDialog = React.forwardRef<
     {...props}
   />
 ))
-CommandDialog.displayName = CommandPrimitive.displayName
-
-interface CommandDialogProps extends DialogProps {}
+CommandDialog.displayName = 'CommandDialog'
 
 const CommandDialogInput = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Input>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<typeof CommandInput>
 >(({ className, ...props }, ref) => (
   <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-    <CommandPrimitive.Input
+    <CommandInput
       ref={ref}
       className={mergeNames(
         'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
@@ -41,14 +48,13 @@ const CommandDialogInput = React.forwardRef<
     />
   </div>
 ))
-
-CommandDialogInput.displayName = CommandPrimitive.Input.displayName
+CommandDialogInput.displayName = 'CommandDialogInput'
 
 const CommandDialogList = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof CommandList>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive.List
+  <CommandList
     ref={ref}
     className={mergeNames(
       'max-h-[300px] overflow-y-auto overflow-x-hidden',
@@ -57,27 +63,21 @@ const CommandDialogList = React.forwardRef<
     {...props}
   />
 ))
-
-CommandDialogList.displayName = CommandPrimitive.List.displayName
+CommandDialogList.displayName = 'CommandDialogList'
 
 const CommandDialogEmpty = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Empty>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof CommandEmpty>
 >((props, ref) => (
-  <CommandPrimitive.Empty
-    ref={ref}
-    className="py-6 text-center text-sm"
-    {...props}
-  />
+  <CommandEmpty ref={ref} className="py-6 text-center text-sm" {...props} />
 ))
-
-CommandDialogEmpty.displayName = CommandPrimitive.Empty.displayName
+CommandDialogEmpty.displayName = 'CommandDialogEmpty'
 
 const CommandDialogGroup = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Group>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof CommandGroup>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive.Group
+  <CommandGroup
     ref={ref}
     className={mergeNames(
       'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
@@ -86,26 +86,25 @@ const CommandDialogGroup = React.forwardRef<
     {...props}
   />
 ))
-
-CommandDialogGroup.displayName = CommandPrimitive.Group.displayName
+CommandDialogGroup.displayName = 'CommandDialogGroup'
 
 const CommandDialogSeparator = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof CommandSeparator>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive.Separator
+  <CommandSeparator
     ref={ref}
     className={mergeNames('-mx-1 h-px bg-border', className)}
     {...props}
   />
 ))
-CommandDialogSeparator.displayName = CommandPrimitive.Separator.displayName
+CommandDialogSeparator.displayName = 'CommandDialogSeparator'
 
 const CommandDialogItem = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof CommandItem>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive.Item
+  <CommandItem
     ref={ref}
     className={mergeNames(
       'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -114,8 +113,7 @@ const CommandDialogItem = React.forwardRef<
     {...props}
   />
 ))
-
-CommandDialogItem.displayName = CommandPrimitive.Item.displayName
+CommandDialogItem.displayName = 'CommandDialogItem'
 
 const CommandDialogShortcut = ({
   className,

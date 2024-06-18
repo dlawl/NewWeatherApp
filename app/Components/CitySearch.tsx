@@ -1,4 +1,5 @@
 'use client'
+import React, { useState, MouseEvent } from 'react'
 import {
   useWeatherContext,
   useWeatherContextUpdate,
@@ -8,8 +9,15 @@ import {
   CommandDialogInput as CommandInput,
 } from '@/components/ui/commandDialog'
 import { searchIcon } from '@/app/utils/Icons'
-import React, { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
+
+interface GeoLocationItem {
+  name: string
+  country: string
+  state: string
+  lat: number
+  lon: number
+}
 
 function CitySearch() {
   const {
@@ -22,13 +30,11 @@ function CitySearch() {
   const { updateCityCoordinates } = useWeatherContextUpdate()
 
   const [hoveredIndex, setHoveredIndex] = useState<number>(0)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const getClickedCoords = (lat: number, lon: number) => {
     updateCityCoordinates([lat, lon])
-    setIsModalOpen(false)
-    setSearchInput('')
-    setGeoLocationList([])
+    closeModal()
   }
 
   const closeModal = () => {
@@ -37,7 +43,7 @@ function CitySearch() {
     setGeoLocationList([])
   }
 
-  const handleClickOutside = (event: React.MouseEvent) => {
+  const handleClickOutside = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       closeModal()
     }
@@ -79,41 +85,29 @@ function CitySearch() {
                   className="w-full border-b"
                 />
                 <ul className="px-3 max-h-[300px] overflow-y-auto">
-                  {geoLocationList?.length === 0 && searchInput && (
+                  {geoLocationList.length === 0 && searchInput && (
                     <p>No Results</p>
                   )}
 
-                  {geoLocationList &&
-                    geoLocationList.map(
-                      (
-                        item: {
-                          name: string
-                          country: string
-                          state: string
-                          lat: number
-                          lon: number
-                        },
-                        index: number
-                      ) => {
-                        const { country, state, name } = item
-                        return (
-                          <li
-                            key={index}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            className={`py-3 px-2 text-sm rounded-sm cursor-default
-                            ${hoveredIndex === index ? 'bg-accent' : ''}
-                          `}
-                            onClick={() => {
-                              getClickedCoords(item.lat, item.lon)
-                            }}
-                          >
-                            <p className=" text">
-                              {name}, {state && state + ','} {country}
-                            </p>
-                          </li>
-                        )
-                      }
-                    )}
+                  {geoLocationList.map(
+                    (item: GeoLocationItem, index: number) => {
+                      const { country, state, name, lat, lon } = item
+                      return (
+                        <li
+                          key={index}
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          className={`py-3 px-2 text-sm rounded-sm cursor-default
+                          ${hoveredIndex === index ? 'bg-accent' : ''}
+                        `}
+                          onClick={() => getClickedCoords(lat, lon)}
+                        >
+                          <p className="text">
+                            {name}, {state && state + ','} {country}
+                          </p>
+                        </li>
+                      )
+                    }
+                  )}
                 </ul>
               </Command>
             </div>

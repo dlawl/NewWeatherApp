@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto p-4 relative z-0" style={{ maxWidth: '1000px' }}>
-      <div className="grid grid-cols-12 gap-4 relative z-0">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 relative z-0">
         <div className="col-span-12 mb-2">
           <CitySearch />
         </div>
@@ -33,7 +33,7 @@ export default function Home() {
         <div className="col-span-12 mt-2">
           <DailyWeatherForecast />
         </div>
-        <div className="col-span-12 grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+        <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
           <AirQuality />
           <FeelTemperature />
           <Moisture />

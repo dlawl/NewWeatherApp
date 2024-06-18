@@ -1,4 +1,5 @@
-// app/Components/CurrentTemperature.tsx
+// // app/Components/CurrentTemperature.tsx
+
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useWeatherContext } from '@/app/context/weatherContext'
@@ -31,7 +32,7 @@ function CurrentTemperature() {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [weatherForecast])
+  }, [weatherForecast?.timezone])
 
   if (!weatherForecast || !weatherForecast.weather) {
     return <div>Loading...</div>
@@ -62,30 +63,19 @@ function CurrentTemperature() {
   }
 
   const getDescription = (description: string) => {
-    switch (description) {
-      case 'clear sky':
-        return '맑은 하늘'
-      case 'few clouds':
-        return '구름 조금'
-      case 'scattered clouds':
-        return '흩어진 구름'
-      case 'broken clouds':
-        return '부서진 구름'
-      case 'shower rain':
-        return '소나기'
-      case 'rain':
-        return '비'
-      case 'thunderstorm':
-        return '뇌우'
-      case 'snow':
-        return '눈'
-      case 'mist':
-        return '안개'
-      case 'overcast clouds':
-        return '흐린 구름'
-      default:
-        return description
+    const descriptions: { [key: string]: string } = {
+      'clear sky': '맑은 하늘',
+      'few clouds': '구름 조금',
+      'scattered clouds': '흩어진 구름',
+      'broken clouds': '부서진 구름',
+      'shower rain': '소나기',
+      rain: '비',
+      thunderstorm: '뇌우',
+      snow: '눈',
+      mist: '안개',
+      'overcast clouds': '흐린 구름',
     }
+    return descriptions[description] || description
   }
 
   return (

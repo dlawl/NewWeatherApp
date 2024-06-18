@@ -24,62 +24,42 @@ interface FiveDayWeather {
 }
 
 function DailyWeatherForecast() {
-  const { weatherForecast, fiveDayForecast } = useWeatherContext()
+  const { fiveDayForecast } = useWeatherContext()
 
-  const { weather } = weatherForecast
-  const { city, list } = fiveDayForecast
-
-  if (!fiveDayForecast || !city || !list) {
-    return <Placeholder className="w-full" />
-  }
-
-  if (!weatherForecast || !weather) {
+  if (!fiveDayForecast?.city || !fiveDayForecast?.list) {
     return <Placeholder className="w-full" />
   }
 
   const today = moment().startOf('day')
 
-  const groupedForecasts: { [key: string]: WeatherForecast[] } = list.reduce(
+  const groupedForecasts = fiveDayForecast.list.reduce(
     (acc: { [key: string]: WeatherForecast[] }, weather: WeatherForecast) => {
       const date = weather.dt_txt.split(' ')[0]
-      if (!acc[date]) {
-        acc[date] = []
-      }
+      if (!acc[date]) acc[date] = []
       acc[date].push(weather)
       return acc
     },
     {}
   )
 
-  const sortedForecastDates = Object.keys(groupedForecasts).sort((a, b) => {
-    const dateA: moment.Moment = moment(a)
-    const dateB: moment.Moment = moment(b)
-    if (dateA.isSame(today, 'day')) return -1
-    if (dateB.isSame(today, 'day')) return 1
-    return dateA.diff(dateB)
-  })
-
   const getWeatherIcon = (weatherMain: string) => {
-    const iconStyle = { width: '100%' }
     switch (weatherMain) {
       case 'Drizzle':
-        return <div style={iconStyle}>{drizzleIcon}</div>
+        return drizzleIcon
       case 'Rain':
-        return <div style={iconStyle}>{rain}</div>
+        return rain
       case 'Snow':
-        return <div style={iconStyle}>{snow}</div>
+        return snow
       case 'Clear':
-        return <div style={iconStyle}>{clearSky}</div>
+        return clearSky
       case 'Clouds':
-        return <div style={iconStyle}>{cloudy}</div>
+        return cloudy
       default:
-        return <div style={iconStyle}>{clearSky}</div>
+        return clearSky
     }
   }
 
-  const getDayOfWeek = (dateString: string) => {
-    return moment(dateString).format('ddd')
-  }
+  const getDayOfWeek = (dateString: string) => moment(dateString).format('ddd')
 
   const getAverageTemperature = (forecasts: WeatherForecast[]) => {
     const totalTemp = forecasts.reduce(
@@ -94,7 +74,7 @@ function DailyWeatherForecast() {
   )
 
   return (
-    <div className="p-12 h-auto flex flex-row justify-between gap-4 col-span-full bg-blur items-center">
+    <div className="p-4 md:p-12 h-auto flex flex-col md:flex-row justify-between gap-4 col-span-full bg-blur items-center">
       {forecastDays.map(date => {
         const dayForecasts = groupedForecasts[date] || []
         const weatherMain =
@@ -104,7 +84,7 @@ function DailyWeatherForecast() {
         return (
           <div
             key={date}
-            className="flex flex-col gap-6 text-dark-text items-center justify-center" // 추가된 justify-center 클래스
+            className="flex flex-col gap-2 md:gap-6 text-dark-text items-center justify-center"
           >
             {getWeatherIcon(weatherMain)}
             <p className="text-gray-500">{getDayOfWeek(date)}</p>
