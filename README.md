@@ -51,13 +51,13 @@ Weather App은 사용자가 실시간으로 날씨 정보를 조회할 수 있�
 ### 프론트엔드
 TypeScript, React, Next.js, TailwindCSS
 
-### 백엔드
+### 데이터 제공 API
 
 OpenWeatherMap API
 
 ### 통합 및 도구
 
-ESLint, Prettier, axios, moment.js, lodash.debounce
+ESLint, Prettier, axios, lodash.debounce
 
 ## 프로젝트를 진행하며 느낀점
 
