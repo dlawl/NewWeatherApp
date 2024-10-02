@@ -43,8 +43,6 @@ Weather App은 사용자가 실시간으로 날씨 정보를 조회할 수 있�
    npm run dev
    ```
 
-### 배포
-[Weather App 배포 URL](https://your-deployed-app-url.com)
 
 ## 프로젝트 동기 및 목표
 
