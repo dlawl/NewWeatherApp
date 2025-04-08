@@ -21,6 +21,8 @@ const nextConfig = {
       },
     ],
     minimumCacheTTL: 60,
+    unoptimized: false,
+    loader: 'default',
   },
   poweredByHeader: false,
   headers: async () => [
@@ -42,10 +44,20 @@ const nextConfig = {
         {
           key: 'Referrer-Policy',
           value: 'strict-origin-when-cross-origin',
+        },
+        {
+          key: 'Cache-Control',
+          value: 'no-store, max-age=0',
         }
       ],
     },
   ],
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000'],
+      bodySizeLimit: '2mb',
+    }
+  }
 }
 
 export default nextConfig
