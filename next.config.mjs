@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-        leaflet: false,
-      }
-    }
-    return config
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: './lib/empty.js' },
+      net: { browser: './lib/empty.js' },
+      tls: { browser: './lib/empty.js' },
+    },
   },
   transpilePackages: ['react-leaflet'],
   images: {
